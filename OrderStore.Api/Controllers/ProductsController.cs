@@ -4,6 +4,7 @@ using OrderStore.Core.Models;
 
 namespace OrderStore.Api.Controllers
 {
+
   [Route("api/[controller]")]
   [ApiController]
   public class ProductsController : ControllerBase

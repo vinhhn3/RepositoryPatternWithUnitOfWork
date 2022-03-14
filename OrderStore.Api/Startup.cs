@@ -5,9 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using OrderStore.Core.Interfaces;
+using OrderStore.Infrastructure;
 using OrderStore.Infrastructure.Data;
-using OrderStore.Infrastructure.Repositories;
 
 namespace OrderStore.Api
 {
@@ -24,12 +23,10 @@ namespace OrderStore.Api
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddControllers();
+      services.AddRepository();
       services.AddDbContext<ApplicationDbContext>(
         m => m.UseSqlServer(
           Configuration.GetConnectionString("OrderStoreDB")), ServiceLifetime.Singleton);
-      services.AddTransient<IOrderRepository, OrderRepository>();
-      services.AddTransient<IProductRepository, ProductRepository>();
-      services.AddTransient<IUnitOfWork, UnitOfWork>();
       services.AddSwaggerGen(c =>
       {
         c.SwaggerDoc(
